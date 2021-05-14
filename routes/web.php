@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\DashboarsController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +27,9 @@ Route::get('create-category', [CategoryController::class, 'create'] );
 Route::post('post-category-form', [CategoryController::class, 'store'] );
 
 Route::get('view-all-category', [CategoryController::class, 'index'] );
+
+Route::get('edit-category/{id}', [CategoryController::class, 'edit']);
+
+Route::post('update-category/{id}', [CategoryController::class, 'update']);
+
+Route::get('delete-category/{id}', [CategoryController::class, 'destroy']);

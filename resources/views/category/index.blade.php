@@ -24,7 +24,7 @@
                             <td>
                                 <a class="btn btn-primary" href="{{URL::to('edit-category')}}/{{$item->id}}">Edit</a>
 
-                                <a class="btn btn-danger" href="{{URL::to('delete-category')}}/{{$item->id}}">Delete</a>
+                                <a class="btn btn-danger" href="{{URL::to('delete-category')}}/{{$item->id}}" onclick="checkDelete()">Delete</a>
                             </td>
                         </tr>
                       @endforeach
@@ -37,4 +37,21 @@
         </div>
       </div>
     </div>
+
+    <script>
+
+        function checkDelete(){
+            var check = confirm('Are you sure you want to delete this category?');
+            if(check){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+    </script>
+
+
+
 @endsection

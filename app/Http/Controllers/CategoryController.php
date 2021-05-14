@@ -55,7 +55,7 @@ class CategoryController extends Controller
                 }
             }
 
-            return redirect()->back()->with('success', 'Profile updated!');
+            return redirect()->back()->with('success', 'Category saved!');
 
         }
         else{
@@ -81,9 +81,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -93,9 +94,34 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $category = Category::find($id);
+        $category->name = $request->input('category_name');
+        $category->icon = "";
+        $category->user_id = 0;
+
+        if($category->save()){
+            $photo = $request->file('category_icon');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $filename = rand() . '.'. $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                   if($photo->move(public_path(), $filename)){
+                       $category = Category::find($category->id);
+                       $category->icon = url('/') . '/' . $filename;
+                       $category->save();
+                   }
+                }
+            }
+
+            return redirect()->back()->with('success', 'Category updated!');
+
+        }
+        else{
+
+            return redirect()->back()->with('failed', 'Could not save Category');
+        }
     }
 
     /**
@@ -104,8 +130,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        if(Category::destroy($id)){
+            return redirect()->back()->with('deleted', 'Category deleted successfuly.');
+        }
+        return redirect()->back()->with('delete-failed', 'Couldnt delete category.');
     }
 }
