@@ -48,3 +48,5 @@ Route::get('edit-product/{id}', [ProductController::class, 'edit'] );
 
 Route::post('post-product-edit-form/{id}', [ProductController::class, 'update']);
 
+Route::get('delete-product/{id}', [ProductController::class, 'destroy'] );
+

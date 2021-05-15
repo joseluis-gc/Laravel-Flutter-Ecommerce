@@ -139,8 +139,12 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        if(Product::destroy($id)){
+            return redirect()->back()->with('success', 'Product deleted successfuly.');
+        }
+        return redirect()->back()->with('deleted', 'Could not delete product.');
+
     }
 }
