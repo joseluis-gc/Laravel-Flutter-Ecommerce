@@ -107,22 +107,26 @@ class ProductController extends Controller
         $product->category_id = $request->input('product_category');
         $product->is_hot_product = $request->input('ishot') ? true : false;
         $product->is_new_product = $request->input('isnew') ? true : false;
-        $product->photo = "";
+        //$product->photo = "";
         $product->user_id = 0;
         if($product->save()){
 
-            $photo = $request->file('product_photo');
-            if($photo != null){
-                $ext = $photo->getClientOriginalExtension();
-                $filename = rand() . '.' . $ext;
-                if($ext == 'jpg' || $ext == 'png'){
-                    if($photo->move(public_path(), $filename)){
-                        $product = Product::find($product->id);
-                        $product->photo = url('/') . '/' . $filename;
-                        $product->save();
+                if($request->file('product_photo') != null){
+
+                $photo = $request->file('product_photo');
+                if($photo != null){
+                    $ext = $photo->getClientOriginalExtension();
+                    $filename = rand() . '.' . $ext;
+                    if($ext == 'jpg' || $ext == 'png'){
+                        if($photo->move(public_path(), $filename)){
+                            $product = Product::find($product->id);
+                            $product->photo = url('/') . '/' . $filename;
+                            $product->save();
+                        }
                     }
                 }
             }
+
             return redirect()->back()->with('success', 'Product saved successfully');
         }
         return redirect()->back()->with('failed', 'Product couldnt be saved');
