@@ -47,7 +47,7 @@ class SliderController extends Controller
                 $file_name = rand() . '.' . $ext;
                 if($ext == 'jpg' || $ext == 'png'){
                     if($photo->move(public_path(), $file_name)){
-                        $slider->photo = url('/') . '/' . $file_name;
+                        $slider->image_url = url('/') . '/' . $file_name;
                         $slider->save();
                     }
                 }
@@ -75,9 +75,10 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit($id)
     {
-        //
+        $slider = Slider::find($id);
+        return view('slider.edit', compact('slider'));
     }
 
     /**
@@ -87,9 +88,28 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request, $id)
     {
-        //
+        $slider = Slider::find($id);
+        $slider->title = $request->input('slider_title');
+        $slider->message = $request->input('slider_message');
+        $slider->image_url = '';
+        if($slider->save()){
+            $photo = $request->file('slider_image');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $file_name = rand() . '.' . $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                    if($photo->move(public_path(), $file_name)){
+                        $slider->image_url = url('/') . '/' . $file_name;
+                        $slider->save();
+                    }
+                }
+            }
+
+            return redirect()->back()->with('success', 'Slider changes Saved!');
+        }
+        return redirect()->back()->with('failed', 'Couldn\'t save slider changes');
     }
 
     /**
@@ -98,8 +118,11 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy($id)
     {
-        //
+        if(Slider::destroy($id)){
+            return redirect()->back()->with('success', 'Slider deleted successfully.');
+        }
+        return redirect()->back()->with('failed', 'Error while trying to delete this slider.');
     }
 }

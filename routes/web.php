@@ -56,4 +56,10 @@ Route::get('get-slider-form',[SliderController::class, 'create']);
 
 Route::post('post-slider-form',[SliderController::class, 'store']);
 
-Route::post('view-all-sliders',[SliderController::class, 'index']);
+Route::get('view-all-sliders',[SliderController::class, 'index']);
+
+Route::get('edit-slider/{id}',[SliderController::class, 'edit']);
+
+Route::get('delete-slider/{id}',[SliderController::class, 'destroy']);
+
+Route::post('post-slider-edit-form/{id}',[SliderController::class, 'update']);

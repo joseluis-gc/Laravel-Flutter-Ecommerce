@@ -1,7 +1,7 @@
 @extends('layout')
 @section('dashboard-content')
 
-@if (session('success'))
+@if (session('sucess'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
@@ -17,22 +17,27 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Category <b class="text-primary">{{$category->name}}</b></h4>
+                <h4 class="card-title">Edit Slider {{$slider->title}}</h4>
                 <p class="card-description">
-                   Edit category data.
+                    Edit a slider
                 </p>
-                <form action="{{URL::to('update-category')}}/{{$category->id}}" method="POST" enctype="multipart/form-data">
+                <form action="{{URL::to('post-slider-edit-form')}}/{{$slider->id}}" method="POST" enctype="multipart/form-data">
                     @csrf
 
 
                     <div class="form-group">
-                        <label>Category Name</label>
-                        <input class="form-control form-control-sm" value="{{$category->name}}" name="category_name">
+                        <label>Slider Title</label>
+                        <input class="form-control form-control-sm" value="{{$slider->title}}" name="slider_title">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Slider Message</label>
+                        <input class="form-control form-control-sm" value="{{$slider->message}}" name="slider_message">
                     </div>
 
                     <div class="form-group">
                         <label>File upload</label>
-                        <input type="file" class="file-upload-default" name="category_icon" onchange="loadPhoto(event)">
+                        <input type="file" class="file-upload-default" name="slider_image" onchange="loadPhoto(event)">
                         <div class="input-group col-xs-12">
                           <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                           <span class="input-group-append">
@@ -42,11 +47,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Current image</label>
-                        <img id="photo" src="{{$category->icon}}" class="img-thumbnail img-fluid mx-auto d-block">
+                        <img src="{{$slider->image_url}}" id="photo" class="img-thumbnail img-fluid mx-auto d-block">
                     </div>
 
-                    <button type="submit" class="btn btn-primary mr-2">Save Category</button>
+                    <button type="submit" class="btn btn-primary mr-2">Save Slider</button>
 
                 </form>
             </div>
