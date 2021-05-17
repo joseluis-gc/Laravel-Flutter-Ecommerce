@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\DashboarsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,3 +51,7 @@ Route::post('post-product-edit-form/{id}', [ProductController::class, 'update'])
 
 Route::get('delete-product/{id}', [ProductController::class, 'destroy'] );
 
+//sliders
+Route::get('get-slider-form',[SliderController::class, 'create']);
+
+Route::post('post-slider-form',[SliderController::class, 'store']);

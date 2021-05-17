@@ -14,7 +14,6 @@ class SliderController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -24,7 +23,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('slider.create');
     }
 
     /**
@@ -35,7 +34,26 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $slider = new Slider();
+        $slider->title = $request->input('slider_title');
+        $slider->message = $request->input('slider_message');
+        $slider->image_url = '';
+        if($slider->save()){
+            $photo = $request->file('slider_image');
+            if($photo != null){
+                $ext = $photo->getClientOriginalExtension();
+                $file_name = rand() . '.' . $ext;
+                if($ext == 'jpg' || $ext == 'png'){
+                    if($photo->move(public_path(), $file_name)){
+                        $slider->photo = url('/') . '/' . $file_name;
+                        $slider->save();
+                    }
+                }
+            }
+
+            return redirect()->back()->with('success', 'Slider Saved!');
+        }
+        return redirect()->back()->with('failed', 'Couldn\'t save slider');
     }
 
     /**
