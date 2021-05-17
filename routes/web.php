@@ -55,3 +55,5 @@ Route::get('delete-product/{id}', [ProductController::class, 'destroy'] );
 Route::get('get-slider-form',[SliderController::class, 'create']);
 
 Route::post('post-slider-form',[SliderController::class, 'store']);
+
+Route::post('view-all-sliders',[SliderController::class, 'index']);

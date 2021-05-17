@@ -11,16 +11,18 @@
                 <table id="example" class="display expandable-table table-striped table-hover" style="width:100%">
                   <thead>
                     <tr>
-                      <th>Category</th>
-                      <th>Icon</th>
+                      <th>Slider</th>
+                      <th>Text</th>
+                      <th>Image</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                       @foreach ($category as $item)
                         <tr>
-                            <td>{{$item->name}}</td>
-                            <td><img class="img-fluid" src="{{$item->icon}}" width="150"></td>
+                            <td>{{$item->title}}</td>
+                            <td>{{$item->message}}</td>
+                            <td><img class="img-fluid" src="{{$item->slider_image}}" width="150"></td>
                             <td>
                                 <a class="btn btn-primary" href="{{URL::to('edit-category')}}/{{$item->id}}">Edit</a>
 
