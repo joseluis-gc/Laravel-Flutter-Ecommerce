@@ -25,3 +25,5 @@ Route::get('categories',[CategoryController::class, 'index']);
 Route::get('sliders',[SliderController::class, 'index']);
 
 Route::get('products',[ProductController::class, 'index']);
+
+Route::get('get-all-hot-products',[ProductController::class, 'getallhotproducts']);
