@@ -91,4 +91,12 @@ class ProductController extends Controller
         return ProductResource::collection($hot_products);
     }
 
+
+    public function getproductsbycategoryid($category_id){
+        $products_by_category = Product::where('category_id', $category_id)->get();
+        return ProductResource::collection($products_by_category);
+
+
+    }
+
 }
