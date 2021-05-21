@@ -42,6 +42,7 @@ class ProductController extends Controller
         $product->name = $request->input('product_name');
         $product->price = $request->input('product_price');
         $product->discount = $request->input('product_discount');
+        $product->detail = $request->input('product_detail');
         $product->category_id = $request->input('product_category');
         $product->is_hot_product = $request->input('ishot') ? true : false;
         $product->is_new_product = $request->input('isnew') ? true : false;
@@ -104,6 +105,7 @@ class ProductController extends Controller
         $product->name = $request->input('product_name');
         $product->price = $request->input('product_price');
         $product->discount = $request->input('product_discount');
+        $product->detail = $request->input('product_detail');
         $product->category_id = $request->input('product_category');
         $product->is_hot_product = $request->input('ishot') ? true : false;
         $product->is_new_product = $request->input('isnew') ? true : false;

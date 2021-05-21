@@ -40,6 +40,12 @@
                         <input class="form-control form-control-sm" type="number" name="product_discount" value="{{$product->discount}}" placeholder="0.0">
                     </div>
 
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control form-control-sm" id="editor1" name="product_detail">{!!$product->detail!!}</textarea>
+                    </div>
+
                     <div class="form-group">
                         <label>Category</label>
                         <select class="form-control form-control-sm" name="product_category" required>
